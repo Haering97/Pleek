@@ -12,7 +12,7 @@ class PlantCard extends StatelessWidget {
     return Container(
       //TODO Use Card() Widget
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+      padding: EdgeInsets.fromLTRB(20, 10, 20, 15),
       margin: EdgeInsets.fromLTRB(50, 18, 50, 18),
       color: Colors.green.shade600,
       child: Row(
@@ -25,11 +25,11 @@ class PlantCard extends StatelessWidget {
           Column(
             children: [
               Container(
-                margin: EdgeInsets.all(5),
+                margin: EdgeInsets.fromLTRB(8,2,8,8),
                 child: Text(
                   name,
                   style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 26,
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,
@@ -39,7 +39,7 @@ class PlantCard extends StatelessWidget {
                 child: Text(
                   date,
                   style: const TextStyle(
-                    fontSize: 19,
+                    fontSize: 15,
                     fontWeight: FontWeight.normal,
                   ),
                   textAlign: TextAlign.center,

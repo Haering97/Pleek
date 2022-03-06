@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import 'main.dart';
 
 class CreateEntry extends StatefulWidget {
   const CreateEntry({Key? key}) : super(key: key);
@@ -9,6 +12,24 @@ class CreateEntry extends StatefulWidget {
 
 class _CreateEntryState extends State<CreateEntry> {
   final textController = TextEditingController();
+  DateTime selectedDate = DateTime.now();
+
+  selectDateAndSave(BuildContext context) async {
+    final DateTime? selected = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2025),
+    );
+
+    if (selected != null && selected != selectedDate) {
+      setState(() {
+        selectedDate = selected;
+      });
+    }
+    Navigator.pop(
+        context, Plant(name: textController.text, dayPlanted: selectedDate));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +56,13 @@ class _CreateEntryState extends State<CreateEntry> {
               children: [
                 const Spacer(flex: 1),
                 const Text(
-                  "Eine neuen Sämling heute einpflanzen",
+                  "Einen Sämling einpflanzen",
                   style: TextStyle(fontSize: 25),
                   textAlign: TextAlign.center,
                 ),
                 const Spacer(flex: 1),
                 TextField(
+                  textAlign: TextAlign.center,
                   controller: textController,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -53,18 +75,17 @@ class _CreateEntryState extends State<CreateEntry> {
                           color: Color.fromRGBO(0, 0, 0, 0.8), fontSize: 20)),
                 ),
                 const Spacer(
-                  flex: 6,
+                  flex: 5,
                 ),
-
                 ElevatedButton(
-                  onPressed: () => Navigator.pop(context, textController.text),
+                  onPressed: () => selectDateAndSave(context),
                   child: Container(
                       margin: const EdgeInsets.fromLTRB(30, 20, 30, 20),
-                      child: const Text("Jetzt Einpflanzen",
+                      child: const Text("Anderes Datum wählen",
                           style: TextStyle(fontSize: 15))),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
+                      (Set<MaterialState> states) {
                         if (states.contains(MaterialState.pressed)) {
                           return Colors.greenAccent;
                         }
@@ -72,7 +93,31 @@ class _CreateEntryState extends State<CreateEntry> {
                       },
                     ),
                   ),
-                )
+                ),
+                Spacer(
+                  flex: 1,
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(
+                      context,
+                      Plant(
+                          name: textController.text,
+                          dayPlanted: DateTime.now())),
+                  child: Container(
+                      margin: const EdgeInsets.fromLTRB(30, 20, 30, 20),
+                      child: const Text("Jetzt Einpflanzen",
+                          style: TextStyle(fontSize: 15))),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.pressed)) {
+                          return Colors.greenAccent;
+                        }
+                        return Colors.green.shade900;
+                      },
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
