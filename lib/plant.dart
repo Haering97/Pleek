@@ -47,7 +47,10 @@ class PlantCard extends StatelessWidget {
             ],
           ),
           Center(
-            child: const Icon(Icons.dehaze),
+            child: InkWell(
+              onLongPress: null,
+              child: Ink(child: Icon(Icons.dehaze),),
+            ),
           )
         ],
       ),
