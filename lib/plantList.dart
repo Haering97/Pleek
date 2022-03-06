@@ -11,6 +11,13 @@ class PlantList extends StatelessWidget {
   final List<Plant> plants;
   final Function deletePlant;
 
+  String calcWeeks(Plant plant){
+    DateTime plantDate = plant.dayPlanted;
+    int daysSince = DateTime.now().difference(plantDate).inDays;
+    double weeksSince = (daysSince/7);
+    return daysSince.toString()+" Tage - "+weeksSince.toString()+" Wochen";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -18,7 +25,7 @@ class PlantList extends StatelessWidget {
             children: plants
                 .map((item) => PlantCard(
                       name: item.name,
-                      date: DateFormat("dd.MM.yy").format(item.dayPlanted),
+                      date: calcWeeks(item),
                       deletePlant:() => deletePlant(item.name),
                     ))
                 .toList()));

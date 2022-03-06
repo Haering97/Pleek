@@ -20,7 +20,7 @@ class PlantCard extends StatelessWidget {
         children: [
           Center(
           //TODO Random Icon, use get variable for that
-            child: const Icon(Icons.rocket_launch),
+            child: const Icon(Icons.dehaze),
           ),
           Column(
             children: [
@@ -50,7 +50,7 @@ class PlantCard extends StatelessWidget {
           Center(
             child: InkWell(
               onLongPress: deletePlant,
-              child: Ink(child: Icon(Icons.dehaze),),
+              child: Ink(child: Icon(Icons.delete),),
             ),
           )
         ],

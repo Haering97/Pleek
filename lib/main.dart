@@ -83,7 +83,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Plant> plants = [];
+  List<Plant> plants = [Plant(name: "Dummy", dayPlanted: DateTime(2022,12,3))];
 
   void _createNewPlant(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling
@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // and show the new result.
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text("Eintrag wurde erstellt!")));
+      ..showSnackBar(const SnackBar(content: Text("Auf ein kurzes aber glücklichs Leben!")));
   }
 
   void _addPlant(String name) async {
@@ -113,6 +113,9 @@ class _MyHomePageState extends State<MyHomePage> {
       plants.removeWhere((element) => element.name == name);
     });
     _savePlants();
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(const SnackBar(content: Text("Das Arme Ding wurde entfernt!")));
   }
 
   Future _savePlants() async {
