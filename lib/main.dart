@@ -18,7 +18,7 @@ class Plant {
   factory Plant.fromJson(Map<String, dynamic> jsonData) {
     return Plant(
       name: jsonData['name'],
-      dayPlanted: jsonData['dayPlanted']
+      dayPlanted: DateFormat("dd.MM.yy").parse(jsonData['dayPlanted'])
     );
   }
 
