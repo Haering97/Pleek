@@ -11,7 +11,7 @@ class PlantList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-          children: plants.map((item) => PlantCard(name: item.name, date: DateFormat("dd.MM.yy").format(item.dayPlanted))).toList()
+          children: plants.map((item) => PlantCard(name: item.name, date: item.dayPlanted)).toList()
       )
     );
   }

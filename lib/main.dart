@@ -18,7 +18,8 @@ class Plant {
   factory Plant.fromJson(Map<String, dynamic> jsonData) {
     return Plant(
       name: jsonData['name'],
-      dayPlanted: jsonData['date']);
+      dayPlanted: DateFormat("dd.MM.yy").parse(jsonData['date'])
+    );
   }
 
   static Map<String, dynamic> toMap(Plant plant) => {
@@ -110,21 +111,23 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     final String encodedData = Plant.encode(plants);
     prefs.setString('plants_key', encodedData);
+    print(plants);
+    print(encodedData);
   }
-  void _loadPlants() async{
+  Future _loadPlants() async{
     final prefs = await SharedPreferences.getInstance();
-    final String? plantsString = await prefs.getString('plants');
-    setState(() async {
-      final List<Plant> plants = Plant.decode(plantsString!);
+    final String? plantsString = prefs.getString('plants_key');
+    setState(() {
+      plants = Plant.decode(plantsString!);
     });
   }
-  /*
+
   @override
   void initState() {
     _loadPlants();
     super.initState();
   }
-*/
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
