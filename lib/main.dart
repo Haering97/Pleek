@@ -174,5 +174,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+//TODO Delete Plant, am liebsten in einem Modal mit infos
 //TODO Zuordnung zu den Töpfe herstellen.
 //TODO IDEA:  QR-Code Pro Pflanze um sie zuordnen zu können.
