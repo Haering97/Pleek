@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
 import 'plantList.dart';
 import 'createEntry.dart';
@@ -13,7 +14,32 @@ class Plant {
   DateTime dayPlanted;
 
   Plant({required this.name, required this.dayPlanted});
+
+  factory Plant.fromJson(Map<String, dynamic> jsonData) {
+    return Plant(
+      name: jsonData['name'],
+      dayPlanted: jsonData['date']);
+  }
+
+  static Map<String, dynamic> toMap(Plant plant) => {
+    'name': plant.name,
+    'dayPlanted': DateFormat("dd.MM.yy").format(plant.dayPlanted)
+  };
+
+  static String encode(List<Plant> plants) => json.encode(
+    plants
+        .map<Map<String, dynamic>>((music) => Plant.toMap(music))
+        .toList(),
+  );
+
+  static List<Plant> decode(String plants) =>
+      (json.decode(plants) as List<dynamic>)
+          .map<Plant>((item) => Plant.fromJson(item))
+          .toList();
+
 }
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -59,7 +85,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Plant> plants = [];
+  List<Plant> plants = [];
 
   void _createNewPlant(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling
@@ -76,14 +102,29 @@ class _MyHomePageState extends State<MyHomePage> {
       ..showSnackBar(const SnackBar(content: Text("Eintrag wurde erstellt!")));
   }
 
-  void _addPlant(String name) {
-    Plant plant = Plant(name: name, dayPlanted: DateTime.now());;
+  void _addPlant(String name) async{
+    final prefs = await SharedPreferences.getInstance();
+    Plant plant = Plant(name: name, dayPlanted: DateTime.now());
     setState(() {
-
       plants.add(plant);
     });
+    final String encodedData = Plant.encode(plants);
+    prefs.setString('plants_key', encodedData);
   }
-
+  void _loadPlants() async{
+    final prefs = await SharedPreferences.getInstance();
+    final String? plantsString = await prefs.getString('plants');
+    setState(() async {
+      final List<Plant> plants = Plant.decode(plantsString!);
+    });
+  }
+  /*
+  @override
+  void initState() {
+    _loadPlants();
+    super.initState();
+  }
+*/
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
