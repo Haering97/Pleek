@@ -55,15 +55,16 @@ class _CreateEntryState extends State<CreateEntry> {
                 const Spacer(
                   flex: 6,
                 ),
+
                 ElevatedButton(
                   onPressed: () => Navigator.pop(context, textController.text),
                   child: Container(
                       margin: const EdgeInsets.fromLTRB(30, 20, 30, 20),
-                      child: const Text("Einpflanzen",
+                      child: const Text("Jetzt Einpflanzen",
                           style: TextStyle(fontSize: 15))),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                      (Set<MaterialState> states) {
+                          (Set<MaterialState> states) {
                         if (states.contains(MaterialState.pressed)) {
                           return Colors.greenAccent;
                         }
