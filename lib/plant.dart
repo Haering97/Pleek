@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class PlantCard extends StatelessWidget {
-  const PlantCard({Key? key, required this.name, required this.date})
+  const PlantCard({Key? key, required this.name, required this.date,required this.deletePlant})
       : super(key: key);
   final String name;
   final String date;
+  final VoidCallback deletePlant;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class PlantCard extends StatelessWidget {
           ),
           Center(
             child: InkWell(
-              onLongPress: null,
+              onLongPress: deletePlant,
               child: Ink(child: Icon(Icons.dehaze),),
             ),
           )

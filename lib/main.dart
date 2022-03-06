@@ -5,7 +5,8 @@ import 'package:intl/intl.dart';
 
 import 'plantList.dart';
 import 'createEntry.dart';
-void main() async{
+
+void main() async {
   runApp(const MyApp());
 }
 
@@ -17,30 +18,26 @@ class Plant {
 
   factory Plant.fromJson(Map<String, dynamic> jsonData) {
     return Plant(
-      name: jsonData['name'],
-      dayPlanted: DateFormat("dd.MM.yy").parse(jsonData['dayPlanted'])
-    );
+        name: jsonData['name'],
+        dayPlanted: DateFormat("dd.MM.yy").parse(jsonData['dayPlanted']));
   }
 
   static Map<String, dynamic> toMap(Plant plant) => {
-    'name': plant.name,
-    'dayPlanted': DateFormat("dd.MM.yy").format(plant.dayPlanted)
-  };
+        'name': plant.name,
+        'dayPlanted': DateFormat("dd.MM.yy").format(plant.dayPlanted)
+      };
 
   static String encode(List<Plant> plants) => json.encode(
-    plants
-        .map<Map<String, dynamic>>((music) => Plant.toMap(music))
-        .toList(),
-  );
+        plants
+            .map<Map<String, dynamic>>((music) => Plant.toMap(music))
+            .toList(),
+      );
 
   static List<Plant> decode(String plants) =>
       (json.decode(plants) as List<dynamic>)
           .map<Plant>((item) => Plant.fromJson(item))
           .toList();
-
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -103,24 +100,32 @@ class _MyHomePageState extends State<MyHomePage> {
       ..showSnackBar(const SnackBar(content: Text("Eintrag wurde erstellt!")));
   }
 
-  void _addPlant(String name) async{
-    final prefs = await SharedPreferences.getInstance();
+  void _addPlant(String name) async {
     Plant plant = Plant(name: name, dayPlanted: DateTime.now());
     setState(() {
       plants.add(plant);
     });
+    _savePlants();
+  }
+
+  void delete_plant(String name) {
+    setState(() {
+      plants.removeWhere((element) => element.name == name);
+    });
+    _savePlants();
+  }
+
+  Future _savePlants() async {
+    final prefs = await SharedPreferences.getInstance();
     final String encodedData = Plant.encode(plants);
     prefs.setString('plants_key', encodedData);
-    //print(plants);
-    //print(encodedData);
   }
-  Future _loadPlants() async{
+
+  Future _loadPlants() async {
     final prefs = await SharedPreferences.getInstance();
     final String? plantsString = prefs.getString('plants_key');
     print(plantsString);
     final List<Plant> decodedList = Plant.decode(plantsString!);
-    print("Hello");
-    print(decodedList);
     setState(() {
       plants = decodedList;
     });
@@ -157,20 +162,23 @@ class _MyHomePageState extends State<MyHomePage> {
           height: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [PlantList(plants: plants)],
+            children: [
+              PlantList(
+                plants: plants,
+                deletePlant: delete_plant,
+              )
+            ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed:() => {
-          _createNewPlant(context)
-        },
+        onPressed: () => {_createNewPlant(context)},
         tooltip: 'Increment',
         child: const Icon(Icons.add),
         backgroundColor: Colors.green.shade900,
         foregroundColor: Colors.greenAccent,
         hoverColor: Colors.green.shade500,
-      ),// This trailing comma makes auto-formatting nicer for build methods.
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
