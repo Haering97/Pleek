@@ -83,7 +83,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Plant> plants = [Plant(name: "Dummy", dayPlanted: DateTime(2022,12,3))];
+  List<Plant> plants = [Plant(name: "Dummy", dayPlanted: DateTime(2022,2,3))];
 
   void _createNewPlant(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling

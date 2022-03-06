@@ -13,7 +13,7 @@ class PlantList extends StatelessWidget {
 
   String calcWeeks(Plant plant){
     DateTime plantDate = plant.dayPlanted;
-    int daysSince = plantDate.difference(DateTime.now()).inDays;
+    int daysSince = DateTime.now().difference(plantDate).inDays;
     double weeksSince = (daysSince/7);
     return daysSince.toString()+" Tage / "+weeksSince.floor().toString()+" Wochen";
   }
