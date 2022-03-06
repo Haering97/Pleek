@@ -18,7 +18,7 @@ class Plant {
   factory Plant.fromJson(Map<String, dynamic> jsonData) {
     return Plant(
       name: jsonData['name'],
-      dayPlanted: DateFormat("dd.MM.yy").parse(jsonData['date'])
+      dayPlanted: jsonData['dayPlanted']
     );
   }
 
@@ -111,14 +111,18 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     final String encodedData = Plant.encode(plants);
     prefs.setString('plants_key', encodedData);
-    print(plants);
-    print(encodedData);
+    //print(plants);
+    //print(encodedData);
   }
   Future _loadPlants() async{
     final prefs = await SharedPreferences.getInstance();
     final String? plantsString = prefs.getString('plants_key');
+    print(plantsString);
+    final List<Plant> decodedList = Plant.decode(plantsString!);
+    print("Hello");
+    print(decodedList);
     setState(() {
-      plants = Plant.decode(plantsString!);
+      plants = decodedList;
     });
   }
 
