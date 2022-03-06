@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'plantList.dart';
 import 'createEntry.dart';
-void main() {
+void main() async{
   runApp(const MyApp());
 }
 
@@ -75,8 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _addPlant(String name) {
-    Plant plant = Plant(name: name, dayPlanted: DateTime.now());
-    plant.toString();
+    Plant plant = Plant(name: name, dayPlanted: DateTime.now());;
     setState(() {
 
       plants.add(plant);
