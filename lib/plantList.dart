@@ -6,16 +6,26 @@ import 'plant.dart';
 
 //TODO das ganze Widget wahrscheinlich komplett sparen
 class PlantList extends StatelessWidget {
-  const PlantList({Key? key, required this.plants, required this.deletePlant})
+  const PlantList(
+      {Key? key,
+      required this.plants,
+      required this.deletePlant,
+      required this.changeName,
+      required this.changeDate})
       : super(key: key);
   final List<Plant> plants;
   final Function deletePlant;
+  final Function changeName;
+  final Function changeDate;
 
-  String calcWeeks(Plant plant){
-    DateTime plantDate = plant.dayPlanted;
+  String calcWeeks(Plant plant) {
+    DateTime plantDate = plant.date;
     int daysSince = DateTime.now().difference(plantDate).inDays;
-    double weeksSince = (daysSince/7);
-    return daysSince.toString()+" Tage / "+weeksSince.floor().toString()+" Wochen";
+    double weeksSince = (daysSince / 7);
+    return daysSince.toString() +
+        " Tage / " +
+        weeksSince.floor().toString() +
+        " Wochen";
   }
 
   @override
@@ -26,7 +36,9 @@ class PlantList extends StatelessWidget {
                 .map((item) => PlantCard(
                       name: item.name,
                       date: calcWeeks(item),
-                      deletePlant:() => deletePlant(item.name),
+                      deletePlant: () => deletePlant(item.name),
+                      changeName: () => changeName(item.name),
+                      changeDate: () => changeDate(item.date),
                     ))
                 .toList()));
   }

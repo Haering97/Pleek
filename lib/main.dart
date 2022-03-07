@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,19 +14,19 @@ void main() async {
 
 class Plant {
   String name;
-  DateTime dayPlanted;
+  DateTime date;
 
-  Plant({required this.name, required this.dayPlanted});
+  Plant({required this.name, required this.date});
 
   factory Plant.fromJson(Map<String, dynamic> jsonData) {
     return Plant(
         name: jsonData['name'],
-        dayPlanted: DateFormat("dd.MM.yy").parse(jsonData['dayPlanted']));
+        date: DateFormat("dd.MM.yy").parse(jsonData['dayPlanted']));
   }
 
   static Map<String, dynamic> toMap(Plant plant) => {
         'name': plant.name,
-        'dayPlanted': DateFormat("dd.MM.yy").format(plant.dayPlanted)
+        'dayPlanted': DateFormat("dd.MM.yy").format(plant.date)
       };
 
   static String encode(List<Plant> plants) => json.encode(
@@ -94,7 +96,11 @@ class _MyHomePageState extends State<MyHomePage> {
       context,
       MaterialPageRoute(builder: (context) => const CreateEntry()),
     );
-    _addPlant(result);
+    try {
+      _addPlant(result);
+    } catch(e) {
+      print(e);
+    }
     // After the Selection Screen returns a result, hide any previous snackbars
     // and show the new result.
     ScaffoldMessenger.of(context)
@@ -110,9 +116,39 @@ class _MyHomePageState extends State<MyHomePage> {
     _savePlants();
   }
 
-  void delete_plant(String name) {
+  void deletePlant(String name) {
     setState(() {
       plants.removeWhere((element) => element.name == name);
+    });
+    _savePlants();
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(
+          const SnackBar(content: Text("Das Arme Ding wurde entfernt!")));
+  }
+
+  void changeName(String oldName){
+    setState(() {
+      plants.forEach((element) {
+        if(element.name == oldName){
+          element.name = oldName;
+        }
+      });
+    });
+    _savePlants();
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(
+          const SnackBar(content: Text("Das Arme Ding wurde entfernt!")));
+  }
+  void changeDate(String name){
+    var newDate = DateTime.now();
+    setState(() {
+      plants.forEach((element) {
+        if(element.name == name){
+          element.date = newDate;
+        }
+      });
     });
     _savePlants();
     ScaffoldMessenger.of(context)
@@ -171,7 +207,9 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               PlantList(
                 plants: plants,
-                deletePlant: delete_plant,
+                deletePlant: deletePlant,
+                changeName: changeName,
+                changeDate: changeDate,
               )
             ],
           ),

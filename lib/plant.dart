@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 
 class PlantCard extends StatelessWidget {
-  const PlantCard({Key? key, required this.name, required this.date,required this.deletePlant})
+  const PlantCard(
+      {Key? key,
+      required this.name,
+      required this.date,
+      required this.deletePlant,
+      required this.changeName,
+      required this.changeDate})
       : super(key: key);
   final String name;
   final String date;
   final VoidCallback deletePlant;
+  final VoidCallback changeName;
+  final VoidCallback changeDate;
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +28,17 @@ class PlantCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Center(
-          //TODO Random Icon, use get variable for that
-            child: const Icon(Icons.dehaze),
+            child: InkWell(
+              onLongPress: deletePlant,
+              child: Ink(
+                child: Icon(Icons.delete),
+              ),
+            ),
           ),
           Column(
             children: [
               Container(
-                margin: EdgeInsets.fromLTRB(8,2,8,8),
+                margin: EdgeInsets.fromLTRB(8, 2, 8, 8),
                 child: Text(
                   name,
                   style: const TextStyle(
@@ -48,10 +61,16 @@ class PlantCard extends StatelessWidget {
             ],
           ),
           Center(
-            child: InkWell(
-              onLongPress: deletePlant,
-              child: Ink(child: Icon(Icons.delete),),
-            ),
+            //TODO Random Icon, use get variable for that
+            child: PopupMenuButton(
+                child: Icon(Icons.dehaze),
+                itemBuilder: (context) {
+                  return [
+                    PopupMenuItem(child: Text("Namen ändern"),onTap: null),
+                    PopupMenuItem(child: Text("Datum ändern"),onTap: null),
+                    PopupMenuItem(child: Text("Absäbeln"),onTap: deletePlant)
+                  ];
+                }),
           )
         ],
       ),
@@ -59,11 +78,7 @@ class PlantCard extends StatelessWidget {
   }
 }
 
-
-
-
-
-            /*emo-squint
+/*emo-squint
             emo-sunglasses
             bug
             user-md

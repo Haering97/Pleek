@@ -28,7 +28,7 @@ class _CreateEntryState extends State<CreateEntry> {
       });
     }
     Navigator.pop(
-        context, Plant(name: textController.text, dayPlanted: selectedDate));
+        context, Plant(name: textController.text, date: selectedDate));
   }
 
   @override
@@ -102,7 +102,7 @@ class _CreateEntryState extends State<CreateEntry> {
                       context,
                       Plant(
                           name: textController.text,
-                          dayPlanted: DateTime.now())),
+                          date: DateTime.now())),
                   child: Container(
                       margin: const EdgeInsets.fromLTRB(30, 20, 30, 20),
                       child: const Text("Jetzt Einpflanzen",
