@@ -37,17 +37,20 @@ class PlantCard extends StatelessWidget {
     return Container(
       //TODO Use Card() Widget
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(20, 10, 20, 15),
-      margin: EdgeInsets.fromLTRB(50, 18, 50, 18),
+      padding: EdgeInsets.fromLTRB(11, 10, 11, 15),
+      margin: EdgeInsets.fromLTRB(20, 18, 20, 18),
       color: Colors.green.shade600,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Center(
-            child: InkWell(
-              onLongPress: null,
-              child: Ink(
-                child: Icon(Icons.delete),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: InkWell(
+                onLongPress: null,
+                child: Ink(
+                  child: Icon(Icons.delete),
+                ),
               ),
             ),
           ),

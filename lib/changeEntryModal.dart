@@ -44,6 +44,7 @@ class _changeEntryModalState extends State<changeEntryModal> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+        alignment: Alignment.center,
         icon: Icon(
           Icons.wysiwyg,
         ),
