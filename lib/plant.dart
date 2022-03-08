@@ -60,27 +60,17 @@ class PlantCard extends StatelessWidget {
             ],
           ),
           Center(
-            //TODO Random Icon, use get variable for that
-            child: PopupMenuButton(
-                child: Icon(Icons.dehaze),
-                itemBuilder: (context) {
-                  return [
-                    PopupMenuItem(
-                      child: Text("Eintrag ändern"),
-                      onTap: () {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                child: Text("Modal"),
-                              );
-                            });
-                      },
-                    ),
-                    PopupMenuItem(child: Text("Absäbeln"), onTap: deletePlant),
-                  ];
-                }),
-          )
+              child: IconButton(
+                  icon: Icon(
+                    Icons.wysiwyg,
+                  ),
+                  onPressed: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(child: Text("hi"),);
+                        });
+                  })),
         ],
       ),
     );
