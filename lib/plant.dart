@@ -68,7 +68,18 @@ class PlantCard extends StatelessWidget {
                     showModalBottomSheet(
                         context: context,
                         builder: (BuildContext context) {
-                          return Container(child: Text("hi"),);
+                          return Container(
+                            width: double.infinity,
+                            child: Column(children: [
+                               Container(
+                                 margin: EdgeInsets.fromLTRB(10, 15, 10, 15),
+                                 child: const Text(
+                                  "Eintrag ändern",
+                                  style:  TextStyle(fontSize: 29,fontWeight: FontWeight.bold),
+                              ),
+                               )
+                            ]),
+                          );
                         });
                   })),
         ],
