@@ -30,7 +30,7 @@ class PlantList extends StatelessWidget {
                 PlantCard(
                   name: item.name,
                   date: item.date,
-                  deletePlant: () => deletePlant(item.name),
+                  deletePlant: deletePlant,
                   changeName: changeName,
                   changeDate: changeDate,
                 ))

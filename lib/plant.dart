@@ -15,7 +15,7 @@ class PlantCard extends StatelessWidget {
   }) : super(key: key);
   final String name;
   final DateTime date;
-  final VoidCallback deletePlant;
+  final Function deletePlant;
   final Function changeName;
   final Function changeDate;
 
@@ -45,7 +45,7 @@ class PlantCard extends StatelessWidget {
         children: [
           Center(
             child: InkWell(
-              onLongPress: deletePlant,
+              onLongPress: null,
               child: Ink(
                 child: Icon(Icons.delete),
               ),
@@ -58,7 +58,7 @@ class PlantCard extends StatelessWidget {
                 child: Text(
                   name,
                   style: const TextStyle(
-                    fontSize: 26,
+                    fontSize: 23,
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,
@@ -77,7 +77,7 @@ class PlantCard extends StatelessWidget {
             ],
           ),
           Center(
-              child: changeEntryModal(oldName: name,oldDate: date,changeName: changeName,changeDate: changeDate) ),
+              child: changeEntryModal(oldName: name,oldDate: date,changeName: changeName,changeDate: changeDate,deletePlant: () => deletePlant(name),) ),
         ],
       ),
     );
