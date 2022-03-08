@@ -144,22 +144,14 @@ class _MyHomePageState extends State<MyHomePage> {
           const SnackBar(content: Text("Das Pflänzchen wurde umbenannt!")));
   }
 
-  void changeDate(BuildContext newContext, String name) async {
-    final DateTime? picked = await showDatePicker(
-      context: newContext,
-      initialDate: _newDate, // Refer step 1
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
-    );
-    if (picked != null && picked != _newDate) {
+  void changeDate(String name, DateTime newDate) {
       setState(() {
         plants.forEach((element) {
           if (element.name == name) {
-            element.date = _newDate;
+            element.date = newDate;
           }
         });
       });
-    }
     _savePlants();
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()

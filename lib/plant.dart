@@ -17,7 +17,7 @@ class PlantCard extends StatelessWidget {
   final DateTime date;
   final VoidCallback deletePlant;
   final Function changeName;
-  final VoidCallback changeDate;
+  final Function changeDate;
 
   String calcWeeks() {
     DateTime plantDate = date;
@@ -77,7 +77,7 @@ class PlantCard extends StatelessWidget {
             ],
           ),
           Center(
-              child: changeEntryModal(changeName: changeName,oldName: name,oldDate: date,) ),
+              child: changeEntryModal(oldName: name,oldDate: date,changeName: changeName,changeDate: changeDate) ),
         ],
       ),
     );

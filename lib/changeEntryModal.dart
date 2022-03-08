@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 class changeEntryModal extends StatefulWidget {
   const changeEntryModal({
     required this.changeName,
+    required this.changeDate,
     required this.oldName,
     required this.oldDate,
     Key? key,
   }) : super(key: key);
   final Function changeName;
+  final Function changeDate;
   final String oldName;
   final DateTime oldDate;
+
   @override
   State<changeEntryModal> createState() => _changeEntryModalState();
 }
@@ -17,17 +20,20 @@ class changeEntryModal extends StatefulWidget {
 class _changeEntryModalState extends State<changeEntryModal> {
   final textController = TextEditingController();
   DateTime selectedDate = DateTime.now();
+  bool dateChanged = false;
+  bool nameChanged = false;
 
   selectDateAndSave(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: widget.oldDate,
       firstDate: DateTime(2010),
       lastDate: DateTime(2025),
     );
 
     if (selected != null && selected != selectedDate) {
       setState(() {
+        dateChanged = true;
         selectedDate = selected;
       });
     }
@@ -55,6 +61,7 @@ class _changeEntryModalState extends State<changeEntryModal> {
                       ),
                       TextField(
                         //TODO alten Namen dem Widget übergeben
+                        onChanged: (value) => nameChanged=true,
                         textAlign: TextAlign.center,
                         controller: textController,
                         decoration: const InputDecoration(
@@ -75,7 +82,8 @@ class _changeEntryModalState extends State<changeEntryModal> {
                             child: const Text("Anderes Datum wählen",
                                 style: TextStyle(fontSize: 15))),
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                          backgroundColor:
+                          MaterialStateProperty.resolveWith<Color>(
                                 (Set<MaterialState> states) {
                               if (states.contains(MaterialState.pressed)) {
                                 return Colors.greenAccent;
@@ -92,7 +100,16 @@ class _changeEntryModalState extends State<changeEntryModal> {
                     ]),
                   ),
                 );
-              }).then((value) => widget.changeName(widget.oldName, value));
+              }).then((value) {
+            setState(() {
+              if (dateChanged) {
+                widget.changeDate(widget.oldName, selectedDate);
+              }
+              if (nameChanged) {
+                widget.changeName(widget.oldName, value);
+              };
+            });
+          });
         });
   }
 }
