@@ -7,14 +7,18 @@ class PlantCard extends StatelessWidget {
       required this.date,
       required this.deletePlant,
       required this.changeName,
-      required this.changeDate})
+      required this.changeDate,
+      })
       : super(key: key);
   final String name;
   final String date;
   final VoidCallback deletePlant;
   final VoidCallback changeName;
-  final VoidCallback changeDate;
+  final Function changeDate;
 
+  setDate (BuildContext context){
+    changeDate(context,name);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +70,8 @@ class PlantCard extends StatelessWidget {
                 child: Icon(Icons.dehaze),
                 itemBuilder: (context) {
                   return [
-                    PopupMenuItem(child: Text("Namen ändern"),onTap: null),
-                    PopupMenuItem(child: Text("Datum ändern"),onTap: null),
+                    PopupMenuItem(child: Text("Namen ändern"),onTap: changeName),
+                    PopupMenuItem(child: Text("Datum ändern"),onTap: setDate(context)),
                     PopupMenuItem(child: Text("Absäbeln"),onTap: deletePlant)
                   ];
                 }),

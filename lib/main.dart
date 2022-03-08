@@ -88,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Plant> plants = [
     //Plant(name: "Dummy", dayPlanted: DateTime(2022,2,3))
   ];
+  DateTime _newDate = DateTime.now();
 
   void _createNewPlant(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling
@@ -98,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     try {
       _addPlant(result);
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
     // After the Selection Screen returns a result, hide any previous snackbars
@@ -127,10 +128,10 @@ class _MyHomePageState extends State<MyHomePage> {
           const SnackBar(content: Text("Das Arme Ding wurde entfernt!")));
   }
 
-  void changeName(String oldName){
+  void changeName(String oldName) {
     setState(() {
       plants.forEach((element) {
-        if(element.name == oldName){
+        if (element.name == oldName) {
           element.name = oldName;
         }
       });
@@ -141,20 +142,28 @@ class _MyHomePageState extends State<MyHomePage> {
       ..showSnackBar(
           const SnackBar(content: Text("Das Arme Ding wurde entfernt!")));
   }
-  void changeDate(String name){
-    var newDate = DateTime.now();
-    setState(() {
-      plants.forEach((element) {
-        if(element.name == name){
-          element.date = newDate;
-        }
+
+  void changeDate(BuildContext newContext, String name) async {
+    final DateTime? picked = await showDatePicker(
+      context: newContext,
+      initialDate: _newDate, // Refer step 1
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    );
+    if (picked != null && picked != _newDate) {
+      setState(() {
+        plants.forEach((element) {
+          if (element.name == name) {
+            element.date = _newDate;
+          }
+        });
       });
-    });
+    }
     _savePlants();
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(
-          const SnackBar(content: Text("Das Arme Ding wurde entfernt!")));
+          const SnackBar(content: Text("Das Datum wurde geändert!")));
   }
 
   Future _savePlants() async {
