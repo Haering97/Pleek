@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 
 class PlantCard extends StatelessWidget {
-  const PlantCard(
-      {Key? key,
-      required this.name,
-      required this.date,
-      required this.deletePlant,
-      required this.changeName,
-      required this.changeDate,
-      })
-      : super(key: key);
+  const PlantCard({
+    Key? key,
+    required this.name,
+    required this.date,
+    required this.deletePlant,
+    required this.changeName,
+    required this.changeDate,
+  }) : super(key: key);
   final String name;
   final String date;
   final VoidCallback deletePlant;
   final VoidCallback changeName;
-  final Function changeDate;
-
-  setDate (BuildContext context){
-    changeDate(context,name);
-  }
+  final VoidCallback changeDate;
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +65,19 @@ class PlantCard extends StatelessWidget {
                 child: Icon(Icons.dehaze),
                 itemBuilder: (context) {
                   return [
-                    PopupMenuItem(child: Text("Namen ändern"),onTap: changeName),
-                    PopupMenuItem(child: Text("Datum ändern"),onTap: setDate(context)),
-                    PopupMenuItem(child: Text("Absäbeln"),onTap: deletePlant)
+                    PopupMenuItem(
+                      child: Text("Eintrag ändern"),
+                      onTap: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                child: Text("Modal"),
+                              );
+                            });
+                      },
+                    ),
+                    PopupMenuItem(child: Text("Absäbeln"), onTap: deletePlant),
                   ];
                 }),
           )

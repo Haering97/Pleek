@@ -43,7 +43,7 @@ class PlantList extends StatelessWidget {
                   date: calcWeeks(item),
                   deletePlant: () => deletePlant(item.name),
                   changeName: () => changeName(item.name),
-                  changeDate: changeDate
+                  changeDate: () => changeDate(context,item.name),
                 ))
                 .toList()));
   }
