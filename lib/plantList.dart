@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pleek/main.dart';
-import 'package:intl/intl.dart';
+
 
 import 'plant.dart';
 
@@ -19,18 +19,7 @@ class PlantList extends StatelessWidget {
 
 
 
-  String calcWeeks(Plant plant) {
-    DateTime plantDate = plant.date;
-    int daysSince = DateTime
-        .now()
-        .difference(plantDate)
-        .inDays;
-    double weeksSince = (daysSince / 7);
-    return daysSince.toString() +
-        " Tage / " +
-        weeksSince.floor().toString() +
-        " Wochen";
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +29,9 @@ class PlantList extends StatelessWidget {
                 .map((item) =>
                 PlantCard(
                   name: item.name,
-                  date: calcWeeks(item),
+                  date: item.date,
                   deletePlant: () => deletePlant(item.name),
-                  changeName: () => changeName(item.name),
+                  changeName: changeName,
                   changeDate: () => changeDate(context,item.name),
                 ))
                 .toList()));

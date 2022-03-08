@@ -128,11 +128,12 @@ class _MyHomePageState extends State<MyHomePage> {
           const SnackBar(content: Text("Das Arme Ding wurde entfernt!")));
   }
 
-  void changeName(String oldName) {
+  void changeName(String oldName,String newName) {
+    print("oldName: "+oldName);
     setState(() {
       plants.forEach((element) {
         if (element.name == oldName) {
-          element.name = oldName;
+          element.name = newName;
         }
       });
     });
@@ -140,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(
-          const SnackBar(content: Text("Das Arme Ding wurde entfernt!")));
+          const SnackBar(content: Text("Das Pflänzchen wurde umbenannt!")));
   }
 
   void changeDate(BuildContext newContext, String name) async {

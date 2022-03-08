@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+
+import 'changeEntryModal.dart';
 
 class PlantCard extends StatelessWidget {
   const PlantCard({
@@ -10,10 +14,23 @@ class PlantCard extends StatelessWidget {
     required this.changeDate,
   }) : super(key: key);
   final String name;
-  final String date;
+  final DateTime date;
   final VoidCallback deletePlant;
-  final VoidCallback changeName;
+  final Function changeName;
   final VoidCallback changeDate;
+
+  String calcWeeks() {
+    DateTime plantDate = date;
+    int daysSince = DateTime
+        .now()
+        .difference(plantDate)
+        .inDays;
+    double weeksSince = (daysSince / 7);
+    return daysSince.toString() +
+        " Tage / " +
+        weeksSince.floor().toString() +
+        " Wochen";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +66,7 @@ class PlantCard extends StatelessWidget {
               ),
               Container(
                 child: Text(
-                  date,
+                  calcWeeks(),
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.normal,
@@ -60,28 +77,7 @@ class PlantCard extends StatelessWidget {
             ],
           ),
           Center(
-              child: IconButton(
-                  icon: Icon(
-                    Icons.wysiwyg,
-                  ),
-                  onPressed: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Container(
-                            width: double.infinity,
-                            child: Column(children: [
-                               Container(
-                                 margin: EdgeInsets.fromLTRB(10, 15, 10, 15),
-                                 child: const Text(
-                                  "Eintrag ändern",
-                                  style:  TextStyle(fontSize: 29,fontWeight: FontWeight.bold),
-                              ),
-                               )
-                            ]),
-                          );
-                        });
-                  })),
+              child: changeEntryModal(changeName: changeName,oldName: name,oldDate: date,) ),
         ],
       ),
     );

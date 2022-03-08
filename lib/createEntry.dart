@@ -98,11 +98,8 @@ class _CreateEntryState extends State<CreateEntry> {
                   flex: 1,
                 ),
                 ElevatedButton(
-                  onPressed: () => Navigator.pop(
-                      context,
-                      Plant(
-                          name: textController.text,
-                          date: DateTime.now())),
+                  onPressed: () => Navigator.pop(context,
+                      Plant(name: textController.text, date: DateTime.now())),
                   child: Container(
                       margin: const EdgeInsets.fromLTRB(30, 20, 30, 20),
                       child: const Text("Jetzt Einpflanzen",
