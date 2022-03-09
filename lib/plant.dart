@@ -49,7 +49,7 @@ class PlantCard extends StatelessWidget {
               child: InkWell(
                 onLongPress: null,
                 child: Ink(
-                  child: Icon(Icons.delete),
+                  child: Icon(Icons.rocket_launch),
                 ),
               ),
             ),

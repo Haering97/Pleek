@@ -29,6 +29,7 @@ class PlantList extends StatelessWidget {
                       changeName: changeName,
                       changeDate: changeDate,
                     ))
-                .toList()));
+                .toList())
+    );
   }
 }
