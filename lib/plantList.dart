@@ -4,7 +4,7 @@ import 'package:pleek/main.dart';
 import 'plant.dart';
 
 //TODO das ganze Widget wahrscheinlich komplett sparen
-class PlantList extends StatelessWidget {
+class PlantList extends StatefulWidget {
   PlantList(
       {Key? key,
       required this.plants,
@@ -18,16 +18,21 @@ class PlantList extends StatelessWidget {
   final Function changeDate;
 
   @override
+  State<PlantList> createState() => _PlantListState();
+}
+
+class _PlantListState extends State<PlantList> {
+  @override
   Widget build(BuildContext context) {
     return Center(
         child: Column(
-            children: plants
+            children: widget.plants
                 .map((item) => PlantCard(
                       name: item.name,
                       date: item.date,
-                      deletePlant: deletePlant,
-                      changeName: changeName,
-                      changeDate: changeDate,
+                      deletePlant: widget.deletePlant,
+                      changeName: widget.changeName,
+                      changeDate: widget.changeDate,
                     ))
                 .toList())
     );
