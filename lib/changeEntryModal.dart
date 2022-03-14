@@ -109,7 +109,7 @@ class _changeEntryModalState extends State<changeEntryModal> {
                             child: Container(
                                 margin:
                                     const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                                child: const Text("Element löschen",
+                                child: const Text("Absäbeln",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(fontSize: 14))),
                             style: ButtonStyle(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-
 import 'changeEntryModal.dart';
 
 class PlantCard extends StatelessWidget {
@@ -21,10 +20,7 @@ class PlantCard extends StatelessWidget {
 
   String calcWeeks() {
     DateTime plantDate = date;
-    int daysSince = DateTime
-        .now()
-        .difference(plantDate)
-        .inDays;
+    int daysSince = DateTime.now().difference(plantDate).inDays;
     double weeksSince = (daysSince / 7);
     return daysSince.toString() +
         " Tage / " +
@@ -44,16 +40,13 @@ class PlantCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Center(
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: InkWell(
-                onLongPress: null,
-                child: Ink(
-                  child: Icon(Icons.rocket_launch),
-                ),
-              ),
-            ),
-          ),
+              child: changeEntryModal(
+                oldName: name,
+                oldDate: date,
+                changeName: changeName,
+                changeDate: changeDate,
+                deletePlant: () => deletePlant(name),
+              )),
           Column(
             children: [
               Container(
@@ -80,7 +73,16 @@ class PlantCard extends StatelessWidget {
             ],
           ),
           Center(
-              child: changeEntryModal(oldName: name,oldDate: date,changeName: changeName,changeDate: changeDate,deletePlant: () => deletePlant(name),) ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: InkWell(
+                onLongPress: null,
+                child: Ink(
+                  child: Icon(Icons.dehaze),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

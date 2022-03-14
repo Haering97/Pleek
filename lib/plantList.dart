@@ -25,26 +25,32 @@ class _PlantListState extends State<PlantList> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ReorderableListView(
-          children: widget.plants
-              .map((item) => PlantCard(
-                    key: ValueKey(item),
-                    name: item.name,
-                    date: item.date,
-                    deletePlant: widget.deletePlant,
-                    changeName: widget.changeName,
-                    changeDate: widget.changeDate,
-                  ))
-              .toList(),
-          onReorder: (oldIndex, newIndex) {
-            setState(() {
-              if (newIndex > oldIndex) {
-                newIndex -= 1;
-              }
-              final element = widget.plants.removeAt(oldIndex);
-              widget.plants.insert(newIndex, element);
-            });
-          }),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.greenAccent.withOpacity(0.1),
+          shadowColor: Colors.transparent,
+        ),
+        child: ReorderableListView(
+            children: widget.plants
+                .map((item) => PlantCard(
+                      key: ValueKey(item),
+                      name: item.name,
+                      date: item.date,
+                      deletePlant: widget.deletePlant,
+                      changeName: widget.changeName,
+                      changeDate: widget.changeDate,
+                    ))
+                .toList(),
+            onReorder: (oldIndex, newIndex) {
+              setState(() {
+                if (newIndex > oldIndex) {
+                  newIndex -= 1;
+                }
+                final element = widget.plants.removeAt(oldIndex);
+                widget.plants.insert(newIndex, element);
+              });
+            },),
+      ),
     );
   }
 }

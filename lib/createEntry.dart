@@ -60,11 +60,13 @@ class _CreateEntryState extends State<CreateEntry> {
                   style: TextStyle(fontSize: 25),
                   textAlign: TextAlign.center,
                 ),
-                const Spacer(flex: 1),
+                const Spacer(flex: 2),
                 TextField(
                   textAlign: TextAlign.center,
                   controller: textController,
                   decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xFFA5D6A7),
                       border: OutlineInputBorder(),
                       enabledBorder: OutlineInputBorder(
                         borderSide:
@@ -72,7 +74,7 @@ class _CreateEntryState extends State<CreateEntry> {
                       ),
                       hintText: 'Gib dem Baby einen Namen',
                       hintStyle: TextStyle(
-                          color: Color.fromRGBO(0, 0, 0, 0.8), fontSize: 20)),
+                          color: Color.fromRGBO(0, 0, 0, 0.5), fontSize: 20)),
                 ),
                 const Spacer(
                   flex: 5,
