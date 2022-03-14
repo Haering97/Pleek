@@ -24,25 +24,24 @@ class PlantList extends StatefulWidget {
 class _PlantListState extends State<PlantList> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: ReorderableListView(
-            children: widget.plants
-                .map((item) => PlantCard(
-                      name: item.name,
-                      date: item.date,
-                      deletePlant: widget.deletePlant,
-                      changeName: widget.changeName,
-                      changeDate: widget.changeDate,
-                    ))
-                .toList(),
-            onReorder: (oldIndex, newIndex) {
-              setState(() {
-                if (newIndex > oldIndex) {
-                  newIndex -= 1;
-                }
-                final element = widget.plants.removeAt(oldIndex);
-                widget.plants.insert(newIndex, element);
-              });
-            }));
+    return ReorderableListView(
+        children: widget.plants
+            .map((item) => PlantCard(
+                  name: item.name,
+                  date: item.date,
+                  deletePlant: widget.deletePlant,
+                  changeName: widget.changeName,
+                  changeDate: widget.changeDate,
+                ))
+            .toList(),
+        onReorder: (oldIndex, newIndex) {
+          setState(() {
+            if (newIndex > oldIndex) {
+              newIndex -= 1;
+            }
+            final element = widget.plants.removeAt(oldIndex);
+            widget.plants.insert(newIndex, element);
+          });
+        });
   }
 }
