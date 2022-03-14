@@ -24,8 +24,7 @@ class PlantList extends StatefulWidget {
 class _PlantListState extends State<PlantList> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 600,
+    return Expanded(
       child: ReorderableListView(
           children: widget.plants
               .map((item) => PlantCard(

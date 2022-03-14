@@ -200,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         color: Colors.green.shade800,
         child: Container(
-          margin: EdgeInsets.fromLTRB(0, 70, 0, 110),
+          margin: EdgeInsets.fromLTRB(0, 70, 0, 90),
           padding: EdgeInsets.fromLTRB(0, 50, 0, 50),
           color: Colors.green.shade700,
           height: double.infinity,
