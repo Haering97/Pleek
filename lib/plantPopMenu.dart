@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class ChangeEntryModal extends StatefulWidget {
-  const ChangeEntryModal({
+import 'plant.dart';
+
+class ModalPopper extends StatefulWidget {
+  const ModalPopper({
     required this.changeName,
     required this.changeDate,
     required this.deletePlant,
-    required this.oldName,
-    required this.oldDate,
+    required this.plant,
     Key? key,
   }) : super(key: key);
   final Function changeName;
   final Function changeDate;
   final VoidCallback deletePlant;
-  final String oldName;
-  final DateTime oldDate;
-
+  final Plant plant;
   @override
-  State<ChangeEntryModal> createState() => _ChangeEntryModalState();
+  State<ModalPopper> createState() => _ModalPopperState();
 }
 
-class _ChangeEntryModalState extends State<ChangeEntryModal> {
+class _ModalPopperState extends State<ModalPopper> {
   final textController = TextEditingController();
   final numberController = TextEditingController();
   DateTime selectedDate = DateTime.now();
@@ -30,7 +29,7 @@ class _ChangeEntryModalState extends State<ChangeEntryModal> {
   selectDateAndSave(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
-      initialDate: widget.oldDate,
+      initialDate: widget.plant.date,
       firstDate: DateTime(2010),
       lastDate: DateTime(2025),
     );
@@ -77,7 +76,7 @@ class _ChangeEntryModalState extends State<ChangeEntryModal> {
                                     borderSide: BorderSide(
                                         color: Colors.greenAccent, width: 2),
                                   ),
-                                  hintText: widget.oldName,
+                                  hintText: widget.plant.name,
                                   hintStyle: const TextStyle(
                                       color: Color.fromRGBO(0, 0, 0, 0.8),
                                       fontSize: 20)),
@@ -157,10 +156,10 @@ class _ChangeEntryModalState extends State<ChangeEntryModal> {
                 }).then((value) {
               setState(() {
                 if (dateChanged) {
-                  widget.changeDate(widget.oldName, selectedDate);
+                  widget.changeDate(widget.plant.name, selectedDate);
                 }
                 if (nameChanged) {
-                  widget.changeName(widget.oldName, value);
+                  widget.changeName(widget.plant.name, value);
                 }
                 textController.clear();
                 dateChanged = false;
@@ -168,7 +167,7 @@ class _ChangeEntryModalState extends State<ChangeEntryModal> {
               });
             });
           } //changeEntryModal
-          else if(newValue == 1){
+          else if (newValue == 1) {
             showModalBottomSheet(
                 context: context,
                 builder: (BuildContext context) {
@@ -190,7 +189,8 @@ class _ChangeEntryModalState extends State<ChangeEntryModal> {
                               onChanged: (value) => nameChanged = true,
                               keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'[0-9]')),
                               ],
                               textAlign: TextAlign.center,
                               controller: numberController,
@@ -205,27 +205,9 @@ class _ChangeEntryModalState extends State<ChangeEntryModal> {
                                       color: Color.fromRGBO(0, 0, 0, 0.8),
                                       fontSize: 20)),
                             ),
-                            ElevatedButton(
-                              onPressed: () => selectDateAndSave(context),
-                              child: Container(
-                                  margin:
-                                  const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                                  child: const Text("Anderes Datum wählen",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 14))),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                MaterialStateProperty.resolveWith<Color>(
-                                      (Set<MaterialState> states) {
-                                    if (states
-                                        .contains(MaterialState.pressed)) {
-                                      return Colors.greenAccent;
-                                    }
-                                    return Colors.green.shade900;
-                                  },
-                                ),
-                              ),
-                            ),
+                            Text("Tage seit dem letzen Gießen",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 14)),
                             ElevatedButton(
                               onPressed: () {
                                 widget.deletePlant();
@@ -233,14 +215,14 @@ class _ChangeEntryModalState extends State<ChangeEntryModal> {
                               },
                               child: Container(
                                   margin:
-                                  const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                                      const EdgeInsets.fromLTRB(15, 10, 15, 10),
                                   child: const Text("Absäbeln",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(fontSize: 14))),
                               style: ButtonStyle(
                                 backgroundColor:
-                                MaterialStateProperty.resolveWith<Color>(
-                                      (Set<MaterialState> states) {
+                                    MaterialStateProperty.resolveWith<Color>(
+                                  (Set<MaterialState> states) {
                                     if (states
                                         .contains(MaterialState.pressed)) {
                                       return Colors.greenAccent;
@@ -256,14 +238,14 @@ class _ChangeEntryModalState extends State<ChangeEntryModal> {
                                 onPressed: () =>
                                     Navigator.pop(context, textController.text),
                                 child: Container(
-                                  //margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                    //margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                     child: const Text("Speichern",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(fontSize: 14))),
                                 style: ButtonStyle(
                                   backgroundColor:
-                                  MaterialStateProperty.resolveWith<Color>(
-                                        (Set<MaterialState> states) {
+                                      MaterialStateProperty.resolveWith<Color>(
+                                    (Set<MaterialState> states) {
                                       if (states
                                           .contains(MaterialState.pressed)) {
                                         return Colors.greenAccent;
@@ -280,18 +262,15 @@ class _ChangeEntryModalState extends State<ChangeEntryModal> {
                 }).then((value) {
               setState(() {
                 if (dateChanged) {
-                  widget.changeDate(widget.oldName, selectedDate);
+
                 }
-                if (nameChanged) {
-                  widget.changeName(widget.oldName, value);
-                }
-                textController.clear();
+                numberController.clear();
                 dateChanged = false;
                 nameChanged = false;
               });
             });
           } //waterPlantModal
-          else if(newValue == 2){} //sendToFlower
+          else if (newValue == 2) {} //sendToFlower
         },
         itemBuilder: (context) => [
               const PopupMenuItem(child: Text("Eintrag ändern"), value: 0),

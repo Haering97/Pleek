@@ -53,6 +53,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  fonts:
+    - family: RobotoSerif
+      fonts:
+        - asset: assets/fonts/RobotoSerif-VariableFont_GRAD,opsz,wdth,wght.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

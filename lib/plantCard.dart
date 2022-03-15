@@ -40,9 +40,8 @@ class PlantCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Center(
-              child: ChangeEntryModal(
-            oldName: plant.name,
-            oldDate: plant.date,
+              child: ModalPopper(
+            plant: plant,
             changeName: changeName,
             changeDate: changeDate,
             deletePlant: () => deletePlant(plant.name),
