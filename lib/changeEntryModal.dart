@@ -166,3 +166,5 @@ class _changeEntryModalState extends State<changeEntryModal> {
         });
   }
 }
+
+//TODO Return only Modal but how, without icon
