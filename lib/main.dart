@@ -41,7 +41,6 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Plant> plants = [
     //Plant(name: "Dummy", dayPlanted: DateTime(2022,2,3))
   ];
-  DateTime _newDate = DateTime.now();
 
   void _createNewPlant(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling
