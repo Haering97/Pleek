@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pleek/plant.dart';
 
+import 'plant.dart';
 import 'plantPopMenu.dart';
 
 class PlantCard extends StatelessWidget {
   const PlantCard({
     Key? key,
-    required this.name,
-    required this.date,
+    required this.plant,
     required this.deletePlant,
     required this.changeName,
     required this.changeDate,
   }) : super(key: key);
-  final String name;
-  final DateTime date;
+  final Plant plant;
   final Function deletePlant;
   final Function changeName;
   final Function changeDate;
 
   String calcWeeks() {
-    DateTime plantDate = date;
+    DateTime plantDate = plant.date;
     int daysSince = DateTime.now().difference(plantDate).inDays;
     double weeksSince = (daysSince / 7);
     return daysSince.toString() +
@@ -33,26 +33,26 @@ class PlantCard extends StatelessWidget {
     return Container(
       //TODO Use Card() Widget
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(11, 10, 11, 15),
-      margin: EdgeInsets.fromLTRB(20, 18, 20, 18),
+      padding: const EdgeInsets.fromLTRB(11, 10, 11, 15),
+      margin: const EdgeInsets.fromLTRB(20, 18, 20, 18),
       color: Colors.green.shade600,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Center(
               child: ChangeEntryModal(
-            oldName: name,
-            oldDate: date,
+            oldName: plant.name,
+            oldDate: plant.date,
             changeName: changeName,
             changeDate: changeDate,
-            deletePlant: () => deletePlant(name),
+            deletePlant: () => deletePlant(plant.name),
           )),
           Column(
             children: [
               Container(
-                margin: EdgeInsets.fromLTRB(8, 2, 8, 8),
+                margin: const EdgeInsets.fromLTRB(8, 2, 8, 8),
                 child: Text(
-                  name,
+                  plant.name,
                   style: const TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.bold,
@@ -78,7 +78,7 @@ class PlantCard extends StatelessWidget {
               child: InkWell(
                 onLongPress: null,
                 child: Ink(
-                  child: Icon(Icons.dehaze),
+                  child: const Icon(Icons.dehaze),
                 ),
               ),
             ),

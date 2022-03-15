@@ -12,6 +12,7 @@ class PlantList extends StatefulWidget {
       required this.changeName,
       required this.changeDate})
       : super(key: key);
+
   final List<Plant> plants;
   final Function deletePlant;
   final Function changeName;
