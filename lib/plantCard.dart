@@ -40,7 +40,7 @@ class PlantCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Center(
-              child: changeEntryModal(
+              child: ChangeEntryModal(
             oldName: name,
             oldDate: date,
             changeName: changeName,

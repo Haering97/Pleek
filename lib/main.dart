@@ -185,3 +185,4 @@ class _MyHomePageState extends State<MyHomePage> {
 //TODO IDEA:  QR-Code Pro Pflanze um sie zuordnen zu können.
 //TODO create water Modal
 //TODO add PopMenu Again, Buttons: 1. Open change Modal 2. open water Modal 3. Maybe delete 4.Maybe zu Blütephase
+//TODO waterPlant: easier Number input
