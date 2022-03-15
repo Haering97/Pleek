@@ -160,11 +160,13 @@ class _changeEntryModalState extends State<changeEntryModal> {
           });
         });
       }
-    },itemBuilder: (context) => []
+    },itemBuilder: (context) => [
+      const PopupMenuItem(child: Text("Eintrag ändern"),value: 0)
+    ]
 
 
-        );)
         );
+
   }
 }
 
