@@ -42,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //Plant(name: "Dummy", dayPlanted: DateTime(2022,2,3))
   ];
 
+
   void _createNewPlant(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling
     // Navigator.pop on the Selection Screen.
@@ -109,6 +110,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ..removeCurrentSnackBar()
       ..showSnackBar(
           const SnackBar(content: Text("Das Datum wurde geändert!")));
+  }
+
+  void waterPlant(String name, DateTime ){
+
   }
 
   Future _savePlants() async {

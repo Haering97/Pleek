@@ -156,7 +156,8 @@ class _ModalPopperState extends State<ModalPopper> {
                 }).then((value) {
               setState(() {
                 if (dateChanged) {
-                  widget.changeDate(widget.plant.name, selectedDate);
+                  //widget.changeDate(widget.plant.name, selectedDate);
+                  widget.plant.date = selectedDate;
                 }
                 if (nameChanged) {
                   widget.changeName(widget.plant.name, value);
