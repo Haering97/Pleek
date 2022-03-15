@@ -35,8 +35,7 @@ class _PlantListState extends State<PlantList> {
             children: widget.plants
                 .map((item) => PlantCard(
                       key: ValueKey(item),
-                      name: item.name,
-                      date: item.date,
+                      plant: item,
                       deletePlant: widget.deletePlant,
                       changeName: widget.changeName,
                       changeDate: widget.changeDate,
