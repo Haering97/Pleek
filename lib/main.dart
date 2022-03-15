@@ -1,44 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:intl/intl.dart';
+import 'plant.dart';
 
 import 'plantList.dart';
 import 'createEntry.dart';
 
 void main() async {
   runApp(const MyApp());
-}
-
-class Plant {
-  String name;
-  DateTime date;
-
-  Plant({required this.name, required this.date});
-
-  factory Plant.fromJson(Map<String, dynamic> jsonData) {
-    return Plant(
-        name: jsonData['name'],
-        date: DateFormat("dd.MM.yy").parse(jsonData['dayPlanted']));
-  }
-
-  static Map<String, dynamic> toMap(Plant plant) => {
-        'name': plant.name,
-        'dayPlanted': DateFormat("dd.MM.yy").format(plant.date)
-      };
-
-  static String encode(List<Plant> plants) => json.encode(
-        plants
-            .map<Map<String, dynamic>>((music) => Plant.toMap(music))
-            .toList(),
-      );
-
-  static List<Plant> decode(String plants) =>
-      (json.decode(plants) as List<dynamic>)
-          .map<Plant>((item) => Plant.fromJson(item))
-          .toList();
 }
 
 class MyApp extends StatelessWidget {
@@ -228,6 +196,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-//TODO Delete Plant, am liebsten in einem Modal mit infos
+//checkedTODO Delete Plant, am liebsten in einem Modal mit infos
 //TODO Zuordnung zu den Töpfe herstellen.
 //TODO IDEA:  QR-Code Pro Pflanze um sie zuordnen zu können.
+//TODO create water Modal
+//TODO add PopMenu Again, Buttons: 1. Open change Modal 2. open water Modal 3. Maybe delete 4.Maybe zu Blütephase

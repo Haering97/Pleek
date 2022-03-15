@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pleek/main.dart';
-
 import 'plant.dart';
+
+import 'plantCard.dart';
 
 //TODO das ganze Widget wahrscheinlich komplett sparen
 class PlantList extends StatefulWidget {
