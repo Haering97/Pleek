@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'changeEntryModal.dart';
+import 'plantPopMenu.dart';
 
 class PlantCard extends StatelessWidget {
   const PlantCard({
@@ -41,12 +41,12 @@ class PlantCard extends StatelessWidget {
         children: [
           Center(
               child: changeEntryModal(
-                oldName: name,
-                oldDate: date,
-                changeName: changeName,
-                changeDate: changeDate,
-                deletePlant: () => deletePlant(name),
-              )),
+            oldName: name,
+            oldDate: date,
+            changeName: changeName,
+            changeDate: changeDate,
+            deletePlant: () => deletePlant(name),
+          )),
           Column(
             children: [
               Container(
