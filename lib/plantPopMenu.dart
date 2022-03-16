@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pleek/modals/plantList.dart';
+import 'package:provider/provider.dart';
 
 import 'modals/plant.dart';
 
@@ -104,13 +106,14 @@ class _ModalPopperState extends State<ModalPopper> {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                widget.deletePlant();
+                                Provider.of<PlantList>(context,listen: false).deletePlant(widget.plant);
+                                //widget.deletePlant();
                                 Navigator.pop(context);
                               },
                               child: Container(
                                   margin:
                                       const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                                  child: const Text("Absäbeln",
+                                  child: const Text("Pflanze Absäbeln",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(fontSize: 14))),
                               style: ButtonStyle(
@@ -157,10 +160,12 @@ class _ModalPopperState extends State<ModalPopper> {
               setState(() {
                 if (dateChanged) {
                   //widget.changeDate(widget.plant.name, selectedDate);
-                  widget.plant.date = selectedDate;
+                  //widget.plant.date = selectedDate;
+                  Provider.of<PlantList>(context,listen: false).changePlantDate(widget.plant, selectedDate);
                 }
                 if (nameChanged) {
-                  widget.changeName(widget.plant.name, value);
+                  //widget.changeName(widget.plant.name, value);
+                  Provider.of<PlantList>(context,listen: false).changePlantName(widget.plant, value);
                 }
                 textController.clear();
                 dateChanged = false;

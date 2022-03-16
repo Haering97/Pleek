@@ -55,9 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
       MaterialPageRoute(builder: (context) => const CreateEntry()),
     );
     try {
-      _addPlant(result);
-      var tmpPlantList = context.read<PlantList>();
-      tmpPlantList.addPlant(result);
+      Provider.of<PlantList>(context,listen: false).addPlant(result);
     } catch (e) {
       print(e);
     }
@@ -88,7 +86,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void changeName(String oldName,String newName) {
-    print("oldName: "+oldName);
     setState(() {
       plants.forEach((element) {
         if (element.name == oldName) {
@@ -118,9 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
           const SnackBar(content: Text("Das Datum wurde geändert!")));
   }
 
-  void waterPlant(String name, DateTime ){
 
-  }
 
   Future _savePlant() async {
     final prefs = await SharedPreferences.getInstance();
@@ -140,7 +135,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    _loadPlants();
+    //_loadPlants();
+    Provider.of<PlantList>(context,listen: false).loadPlants();
     super.initState();
   }
 
@@ -198,3 +194,4 @@ class _MyHomePageState extends State<MyHomePage> {
 //TODO create water Modal
 //TODO add PopMenu Again, Buttons: 1. Open change Modal 2. open water Modal 3. Maybe delete 4.Maybe zu Blütephase
 //TODO waterPlant: easier Number input
+//TODO Accounts Lol

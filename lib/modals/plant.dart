@@ -9,7 +9,7 @@ class Plant {
 
   Plant({required this.name, required this.date});
 
-  factory Plant.fromJson(Map<String, dynamic> jsonData) {
+  factory Plant.fromJson (Map<String, dynamic> jsonData) {
     return Plant(
         name: jsonData['name'],
         date: DateFormat("dd.MM.yy").parse(jsonData['dayPlanted']));
