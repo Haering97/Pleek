@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 //checkedTODO Delete Plant, am liebsten in einem Modal mit infos
-//TODO REFACTOR CODE!!!
+//checkedTODO REFACTOR CODE!!!
 //TODO Zuordnung zu den Töpfe herstellen.
 //TODO IDEA:  QR-Code Pro Pflanze um sie zuordnen zu können.
 //TODO create water Modal
