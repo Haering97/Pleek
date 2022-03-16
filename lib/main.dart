@@ -59,78 +59,10 @@ class _MyHomePageState extends State<MyHomePage> {
     } catch (e) {
       print(e);
     }
-    // After the Selection Screen returns a result, hide any previous snackbars
-    // and show the new result.
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(const SnackBar(
           content: Text("Auf ein kurzes aber glücklichs Leben!")));
-  }
-
-  void _addPlant(Plant plant) async {
-    setState(() {
-      plants.add(plant);
-    });
-    _savePlant();
-  }
-
-  void deletePlant(String name) {
-    setState(() {
-      plants.removeWhere((element) => element.name == name);
-    });
-    _savePlant();
-    ScaffoldMessenger.of(context)
-      ..removeCurrentSnackBar()
-      ..showSnackBar(
-          const SnackBar(content: Text("Das Arme Ding wurde entfernt!")));
-  }
-
-  void changeName(String oldName,String newName) {
-    setState(() {
-      plants.forEach((element) {
-        if (element.name == oldName) {
-          element.name = newName;
-        }
-      });
-    });
-    _savePlant();
-    ScaffoldMessenger.of(context)
-      ..removeCurrentSnackBar()
-      ..showSnackBar(
-          const SnackBar(content: Text("Das Pflänzchen wurde umbenannt!")));
-  }
-
-  void changeDate(String name, DateTime newDate) {
-      setState(() {
-        plants.forEach((element) {
-          if (element.name == name) {
-            element.date = newDate;
-          }
-        });
-      });
-    _savePlant();
-    ScaffoldMessenger.of(context)
-      ..removeCurrentSnackBar()
-      ..showSnackBar(
-          const SnackBar(content: Text("Das Datum wurde geändert!")));
-  }
-
-
-
-  Future _savePlant() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String encodedData = Plant.encode(plants);
-    prefs.setString('plants_key', encodedData);
-  }
-
-  Future _loadPlants() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? plantsString = prefs.getString('plants_key');
-    //print(plantsString);
-    final List<Plant> decodedList = Plant.decode(plantsString!);
-    setState(() {
-      plants = decodedList;
-    });
   }
 
   @override
@@ -168,9 +100,6 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               PlantListWidget(
                 plants: plants,
-                deletePlant: deletePlant,
-                changeName: changeName,
-                changeDate: changeDate,
               )
             ],
           ),

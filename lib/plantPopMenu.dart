@@ -7,15 +7,9 @@ import 'modals/plant.dart';
 
 class ModalPopper extends StatefulWidget {
   const ModalPopper({
-    required this.changeName,
-    required this.changeDate,
-    required this.deletePlant,
     required this.plant,
     Key? key,
   }) : super(key: key);
-  final Function changeName;
-  final Function changeDate;
-  final VoidCallback deletePlant;
   final Plant plant;
   @override
   State<ModalPopper> createState() => _ModalPopperState();
@@ -211,33 +205,9 @@ class _ModalPopperState extends State<ModalPopper> {
                                       color: Color.fromRGBO(0, 0, 0, 0.8),
                                       fontSize: 20)),
                             ),
-                            Text("Tage seit dem letzen Gießen",
+                            const Text("Tage seit dem letzen Gießen",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontSize: 14)),
-                            ElevatedButton(
-                              onPressed: () {
-                                widget.deletePlant();
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                  margin:
-                                      const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                                  child: const Text("Absäbeln",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 14))),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.resolveWith<Color>(
-                                  (Set<MaterialState> states) {
-                                    if (states
-                                        .contains(MaterialState.pressed)) {
-                                      return Colors.greenAccent;
-                                    }
-                                    return Colors.green.shade900;
-                                  },
-                                ),
-                              ),
-                            ),
                             Container(
                               margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
                               child: ElevatedButton(

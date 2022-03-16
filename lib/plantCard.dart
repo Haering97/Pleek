@@ -9,14 +9,8 @@ class PlantCard extends StatelessWidget {
   const PlantCard({
     Key? key,
     required this.plant,
-    required this.deletePlant,
-    required this.changeName,
-    required this.changeDate,
   }) : super(key: key);
   final Plant plant;
-  final Function deletePlant;
-  final Function changeName;
-  final Function changeDate;
 
   String calcWeeks() {
     DateTime plantDate = plant.date;
@@ -43,9 +37,6 @@ class PlantCard extends StatelessWidget {
           Center(
               child: ModalPopper(
             plant: plant,
-            changeName: changeName,
-            changeDate: changeDate,
-            deletePlant: () => deletePlant(plant.name),
           )),
           Column(
             children: [

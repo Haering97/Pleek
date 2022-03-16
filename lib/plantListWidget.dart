@@ -9,16 +9,11 @@ import 'plantCard.dart';
 class PlantListWidget extends StatefulWidget {
   PlantListWidget(
       {Key? key,
-      required this.plants,
-      required this.deletePlant,
-      required this.changeName,
-      required this.changeDate})
+      required this.plants
+      })
       : super(key: key);
 
   final List<Plant> plants;
-  final Function deletePlant;
-  final Function changeName;
-  final Function changeDate;
 
   @override
   State<PlantListWidget> createState() => _PlantListWidgetState();
@@ -40,9 +35,6 @@ class _PlantListWidgetState extends State<PlantListWidget> {
                           .map((item) => PlantCard(
                                 key: ValueKey(item),
                                 plant: item,
-                                deletePlant: widget.deletePlant,
-                                changeName: widget.changeName,
-                                changeDate: widget.changeDate,
                               ))
                           .toList(),
                       onReorder: (oldIndex, newIndex) {
