@@ -8,8 +8,9 @@ import 'plantListWidget.dart';
 import 'createEntry.dart';
 
 void main() async {
-  runApp(
-      ChangeNotifierProvider(create: (context) => PlantList(),child: const MyApp())
+  runApp(ChangeNotifierProvider(
+      create: (context) => PlantList(),
+      child: const MyApp())
   );
 }
 
@@ -45,7 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Plant> plants = [
     //Plant(name: "Dummy", dayPlanted: DateTime(2022,2,3))
   ];
-  PlantList plantList = PlantList();
 
   void _createNewPlant(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling
@@ -55,8 +55,9 @@ class _MyHomePageState extends State<MyHomePage> {
       MaterialPageRoute(builder: (context) => const CreateEntry()),
     );
     try {
-      //_addPlant(result);
-      plantList.addPlant(result);
+      _addPlant(result);
+      var tmpPlantList = context.read<PlantList>();
+      tmpPlantList.addPlant(result);
     } catch (e) {
       print(e);
     }
@@ -130,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future _loadPlants() async {
     final prefs = await SharedPreferences.getInstance();
     final String? plantsString = prefs.getString('plants_key');
-    print(plantsString);
+    //print(plantsString);
     final List<Plant> decodedList = Plant.decode(plantsString!);
     setState(() {
       plants = decodedList;

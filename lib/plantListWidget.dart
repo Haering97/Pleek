@@ -28,30 +28,34 @@ class _PlantListWidgetState extends State<PlantListWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Colors.greenAccent.withOpacity(0.1),
-          shadowColor: Colors.transparent,
-        ),child: Consumer<PlantList>(builder: (context, plantList, child) => ReorderableListView(
-        children: plantList.plants
-            .map((item) => PlantCard(
-          key: ValueKey(item),
-          plant: item,
-          deletePlant: widget.deletePlant,
-          changeName: widget.changeName,
-          changeDate: widget.changeDate,
-        ))
-            .toList(),
-        onReorder: (oldIndex, newIndex) {
-          setState(() {
-            if (newIndex > oldIndex) {
-              newIndex -= 1;
-            }
-            final element = widget.plants.removeAt(oldIndex);
-            widget.plants.insert(newIndex, element);
-          });
-        },)),
-        /*child: ReorderableListView(
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              canvasColor: Colors.greenAccent.withOpacity(0.1),
+              shadowColor: Colors.transparent,
+            ),
+            child: Consumer<PlantList>(
+                builder: (context, plantList, child) {
+                      return ReorderableListView(
+                      children: plantList.plants
+                          .map((item) => PlantCard(
+                                key: ValueKey(item),
+                                plant: item,
+                                deletePlant: widget.deletePlant,
+                                changeName: widget.changeName,
+                                changeDate: widget.changeDate,
+                              ))
+                          .toList(),
+                      onReorder: (oldIndex, newIndex) {
+                        setState(() {
+                          if (newIndex > oldIndex) {
+                            newIndex -= 1;
+                          }
+                          final element = widget.plants.removeAt(oldIndex);
+                          widget.plants.insert(newIndex, element);
+                        });
+                      },
+                    );}),
+            /*child: ReorderableListView(
             children: widget.plants
                 .map((item) => PlantCard(
                       key: ValueKey(item),
@@ -70,7 +74,7 @@ class _PlantListWidgetState extends State<PlantListWidget> {
                 widget.plants.insert(newIndex, element);
               });
             },),*/
-      ),
-    );
+          ),
+        );
   }
 }

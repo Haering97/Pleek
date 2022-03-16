@@ -30,6 +30,7 @@ class PlantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("plantCard Dawn");
     return Container(
       //TODO Use Card() Widget
       width: double.infinity,
