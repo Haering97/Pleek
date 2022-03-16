@@ -7,13 +7,9 @@ import 'plantCard.dart';
 
 //TODO das ganze Widget wahrscheinlich komplett sparen
 class PlantListWidget extends StatefulWidget {
-  PlantListWidget(
-      {Key? key,
-      required this.plants
-      })
+  const PlantListWidget(
+      {Key? key})
       : super(key: key);
-
-  final List<Plant> plants;
 
   @override
   State<PlantListWidget> createState() => _PlantListWidgetState();
@@ -42,8 +38,8 @@ class _PlantListWidgetState extends State<PlantListWidget> {
                           if (newIndex > oldIndex) {
                             newIndex -= 1;
                           }
-                          final element = widget.plants.removeAt(oldIndex);
-                          widget.plants.insert(newIndex, element);
+                          final element = plantList.plants.removeAt(oldIndex);
+                          plantList.plants.insert(newIndex, element);
                         });
                       },
                     );}),

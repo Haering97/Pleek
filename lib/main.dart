@@ -43,9 +43,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Plant> plants = [
-    //Plant(name: "Dummy", dayPlanted: DateTime(2022,2,3))
-  ];
 
   void _createNewPlant(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling
@@ -97,10 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
           height: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              PlantListWidget(
-                plants: plants,
-              )
+            children: const [
+              PlantListWidget()
             ],
           ),
         ),
