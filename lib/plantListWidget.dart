@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'plant.dart';
+import 'package:pleek/modals/plantList.dart';
+import 'package:provider/provider.dart';
+import 'modals/plant.dart';
 
 import 'plantCard.dart';
 
 //TODO das ganze Widget wahrscheinlich komplett sparen
-class PlantList extends StatefulWidget {
-  PlantList(
+class PlantListWidget extends StatefulWidget {
+  PlantListWidget(
       {Key? key,
       required this.plants,
       required this.deletePlant,
@@ -19,10 +21,10 @@ class PlantList extends StatefulWidget {
   final Function changeDate;
 
   @override
-  State<PlantList> createState() => _PlantListState();
+  State<PlantListWidget> createState() => _PlantListWidgetState();
 }
 
-class _PlantListState extends State<PlantList> {
+class _PlantListWidgetState extends State<PlantListWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -30,8 +32,26 @@ class _PlantListState extends State<PlantList> {
         data: Theme.of(context).copyWith(
           canvasColor: Colors.greenAccent.withOpacity(0.1),
           shadowColor: Colors.transparent,
-        ),
-        child: ReorderableListView(
+        ),child: Consumer<PlantList>(builder: (context, plantList, child) => ReorderableListView(
+        children: plantList.plants
+            .map((item) => PlantCard(
+          key: ValueKey(item),
+          plant: item,
+          deletePlant: widget.deletePlant,
+          changeName: widget.changeName,
+          changeDate: widget.changeDate,
+        ))
+            .toList(),
+        onReorder: (oldIndex, newIndex) {
+          setState(() {
+            if (newIndex > oldIndex) {
+              newIndex -= 1;
+            }
+            final element = widget.plants.removeAt(oldIndex);
+            widget.plants.insert(newIndex, element);
+          });
+        },)),
+        /*child: ReorderableListView(
             children: widget.plants
                 .map((item) => PlantCard(
                       key: ValueKey(item),
@@ -49,7 +69,7 @@ class _PlantListState extends State<PlantList> {
                 final element = widget.plants.removeAt(oldIndex);
                 widget.plants.insert(newIndex, element);
               });
-            },),
+            },),*/
       ),
     );
   }

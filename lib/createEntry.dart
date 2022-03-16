@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'plant.dart';
+import 'modals/plant.dart';
 
 class CreateEntry extends StatefulWidget {
   const CreateEntry({Key? key}) : super(key: key);

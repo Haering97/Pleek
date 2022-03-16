@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:pleek/modals/plantList.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'plant.dart';
 
-import 'plantList.dart';
+import 'modals/plant.dart';
+import 'plantListWidget.dart';
 import 'createEntry.dart';
 
 void main() async {
-  runApp(const MyApp());
+  runApp(
+      ChangeNotifierProvider(create: (context) => PlantList(),child: const MyApp())
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -41,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Plant> plants = [
     //Plant(name: "Dummy", dayPlanted: DateTime(2022,2,3))
   ];
-
+  PlantList plantList = PlantList();
 
   void _createNewPlant(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling
@@ -51,7 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
       MaterialPageRoute(builder: (context) => const CreateEntry()),
     );
     try {
-      _addPlant(result);
+      //_addPlant(result);
+      plantList.addPlant(result);
     } catch (e) {
       print(e);
     }
@@ -67,14 +72,14 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       plants.add(plant);
     });
-    _savePlants();
+    _savePlant();
   }
 
   void deletePlant(String name) {
     setState(() {
       plants.removeWhere((element) => element.name == name);
     });
-    _savePlants();
+    _savePlant();
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(
@@ -90,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       });
     });
-    _savePlants();
+    _savePlant();
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(
@@ -105,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         });
       });
-    _savePlants();
+    _savePlant();
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(
@@ -116,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
 
-  Future _savePlants() async {
+  Future _savePlant() async {
     final prefs = await SharedPreferences.getInstance();
     final String encodedData = Plant.encode(plants);
     prefs.setString('plants_key', encodedData);
@@ -164,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              PlantList(
+              PlantListWidget(
                 plants: plants,
                 deletePlant: deletePlant,
                 changeName: changeName,
@@ -186,6 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 //checkedTODO Delete Plant, am liebsten in einem Modal mit infos
+//TODO REFACTOR CODE!!!
 //TODO Zuordnung zu den Töpfe herstellen.
 //TODO IDEA:  QR-Code Pro Pflanze um sie zuordnen zu können.
 //TODO create water Modal

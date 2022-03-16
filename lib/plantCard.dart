@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pleek/plant.dart';
+import 'package:pleek/modals/plant.dart';
 
-import 'plant.dart';
+import 'modals/plant.dart';
 import 'plantPopMenu.dart';
 
 class PlantCard extends StatelessWidget {
