@@ -66,7 +66,7 @@ class PlantList with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final String? plantsString = prefs.getString('plants_key');
     //print(plantsString);
-    final List<Plant> decodedList = Plant.decode(plantsString!);
+    final List<Plant> decodedList = decode(plantsString!);
 
     plants = decodedList;
     notifyListeners();
