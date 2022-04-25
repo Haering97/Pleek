@@ -24,6 +24,7 @@ class _PlantListWidgetState extends State<PlantListWidget> {
               canvasColor: Colors.greenAccent.withOpacity(0.1),
               shadowColor: Colors.transparent,
             ),
+
             child: Consumer<PlantList>(
                 builder: (context, plantList, child) {
                       return ReorderableListView(
@@ -43,25 +44,6 @@ class _PlantListWidgetState extends State<PlantListWidget> {
                         });
                       },
                     );}),
-            /*child: ReorderableListView(
-            children: widget.plants
-                .map((item) => PlantCard(
-                      key: ValueKey(item),
-                      plant: item,
-                      deletePlant: widget.deletePlant,
-                      changeName: widget.changeName,
-                      changeDate: widget.changeDate,
-                    ))
-                .toList(),
-            onReorder: (oldIndex, newIndex) {
-              setState(() {
-                if (newIndex > oldIndex) {
-                  newIndex -= 1;
-                }
-                final element = widget.plants.removeAt(oldIndex);
-                widget.plants.insert(newIndex, element);
-              });
-            },),*/
           ),
         );
   }

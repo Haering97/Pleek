@@ -52,6 +52,21 @@ class PlantCard extends StatelessWidget {
                 ),
               ),
               Container(
+                child: Row(
+                  children: [
+                    Text(
+                      calcWeeks(),
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.only(top: 8),
                 child: Text(
                   calcWeeks(),
                   style: const TextStyle(
