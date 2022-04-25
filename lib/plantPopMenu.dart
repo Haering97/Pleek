@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pleek/modals/plantList.dart';
+import 'package:pleek/models/plantList.dart';
 import 'package:provider/provider.dart';
 
-import 'modals/plant.dart';
+import 'models/plant.dart';
 
 class ModalPopper extends StatefulWidget {
   const ModalPopper({
@@ -21,6 +21,7 @@ class _ModalPopperState extends State<ModalPopper> {
   DateTime selectedDate = DateTime.now();
   bool dateChanged = false;
   bool nameChanged = false;
+  bool notesChanged = false;
 
   selectDateAndSave(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
@@ -73,6 +74,22 @@ class _ModalPopperState extends State<ModalPopper> {
                                         color: Colors.greenAccent, width: 2),
                                   ),
                                   hintText: widget.plant.name,
+                                  hintStyle: const TextStyle(
+                                      color: Color.fromRGBO(0, 0, 0, 0.8),
+                                      fontSize: 20)),
+                            ),
+                            TextField(
+                              //TODO alten Namen dem Widget übergeben
+                              onChanged: (value) => notesChanged = true,
+                              textAlign: TextAlign.center,
+                              controller: textController,
+                              decoration: InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.greenAccent, width: 2),
+                                  ),
+                                  hintText: widget.plant.notes,
                                   hintStyle: const TextStyle(
                                       color: Color.fromRGBO(0, 0, 0, 0.8),
                                       fontSize: 20)),
@@ -152,6 +169,11 @@ class _ModalPopperState extends State<ModalPopper> {
                   );
                 }).then((value) {
               setState(() {
+                if (notesChanged) {
+                  //widget.changeDate(widget.plant.name, selectedDate);
+                  //widget.plant.date = selectedDate;
+                  Provider.of<PlantList>(context,listen: false).changePlantDate(widget.plant, value);
+                }
                 if (dateChanged) {
                   //widget.changeDate(widget.plant.name, selectedDate);
                   //widget.plant.date = selectedDate;
@@ -249,7 +271,7 @@ class _ModalPopperState extends State<ModalPopper> {
           else if (newValue == 2) {} //sendToFlower
         },
         itemBuilder: (context) => [
-              const PopupMenuItem(child: Text("Eintrag ändern"), value: 0),
+              const PopupMenuItem(child: Text("Mehr..."), value: 0),
               const PopupMenuItem(child: Text("Pflanze Gießen"), value: 1),
               const PopupMenuItem(
                 child: Text("In die Blüte schicken"),

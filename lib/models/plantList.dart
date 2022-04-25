@@ -42,6 +42,16 @@ class PlantList with ChangeNotifier {
     notifyListeners();
   }
 
+  void changePlantNotes(Plant plant, String newNotes){
+    plants.forEach((element) {
+      if (element.name == plant.name) {
+        element.notes = newNotes;
+      }
+    });
+    savePlants();
+    notifyListeners();
+  }
+
   Future savePlants() async {
     final prefs = await SharedPreferences.getInstance();
     final String encodedData = encode(plants);

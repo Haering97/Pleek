@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pleek/modals/plant.dart';
+import 'package:pleek/models/plant.dart';
 
-import 'modals/plant.dart';
+import 'models/plant.dart';
 import 'plantPopMenu.dart';
 
 class PlantCard extends StatelessWidget {
@@ -24,7 +24,6 @@ class PlantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("plantCard Dawn");
     return Container(
       //TODO Use Card() Widget
       width: double.infinity,
@@ -55,7 +54,8 @@ class PlantCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      calcWeeks(),
+                      //TODO OnTap zwischen Tagen und Wochen wechseln.
+                      calcWeeks() + " alt",
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.normal,
@@ -63,17 +63,6 @@ class PlantCard extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 8),
-                child: Text(
-                  calcWeeks(),
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                  ),
-                  textAlign: TextAlign.center,
                 ),
               ),
             ],
