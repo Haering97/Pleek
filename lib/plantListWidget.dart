@@ -34,6 +34,7 @@ class _PlantListWidgetState extends State<PlantListWidget> {
                                 plant: item,
                               ))
                           .toList(),
+
                       onReorder: (oldIndex, newIndex) {
                         setState(() {
                           if (newIndex > oldIndex) {

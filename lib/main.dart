@@ -1,16 +1,24 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:pleek/models/plantList.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 import 'models/plant.dart';
 import 'plantListWidget.dart';
 import 'createEntry.dart';
+import 'package:pleek/models/client.dart';
 
 void main() async {
-  runApp(ChangeNotifierProvider(
-      create: (context) => PlantList(),
-      child: const MyApp())
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => PlantList()),
+        Provider(create: (context) => AWClient()),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -22,10 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'RobotoSerif'
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'RobotoSerif'),
       home: const MyHomePage(title: 'Pleek'),
     );
   }
@@ -43,7 +48,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   void _createNewPlant(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling
     // Navigator.pop on the Selection Screen.
@@ -52,7 +56,40 @@ class _MyHomePageState extends State<MyHomePage> {
       MaterialPageRoute(builder: (context) => const CreateEntry()),
     );
     try {
-      Provider.of<PlantList>(context,listen: false).addPlant(result);
+      Provider.of<PlantList>(context, listen: false).addPlant(result);
+      //Client client = Provider.of<AWClient>(context, listen: false).client;
+
+      Client client = Client()
+          .setEndpoint(
+          'https://80-webtronaute-webtronappw-29irk4x2vmb.ws-eu71.gitpod.io/v1') // Your Appwrite Endpoint
+          .setProject('634fdc9650e4f88d31d5') // Your project ID
+          .setSelfSigned(
+          status:
+          true); // For self signed certificates, only use for development
+      
+      Databases databases = Databases(client);
+
+
+
+      Map<String, dynamic> data = {"name":"Pilbert"};
+
+      Future test = databases.listDocuments(
+        databaseId: '63502af183e55060a3f4',
+        collectionId: '63502bcd7b0601e44225'
+      );
+
+      print("client");
+      print(client.endPoint);
+
+      test.then((response) {
+        print("response");
+        print(response);
+      }).catchError((error) {
+        print("error.response");
+        print(error);
+      });
+
+
     } catch (e) {
       print(e);
     }
@@ -62,11 +99,10 @@ class _MyHomePageState extends State<MyHomePage> {
           content: Text("Auf ein kurzes aber glücklichs Leben!")));
   }
 
-
   @override
   void initState() {
     //_loadPlants();
-    Provider.of<PlantList>(context,listen: false).loadPlants();
+    Provider.of<PlantList>(context, listen: false).loadPlants();
     super.initState();
   }
 
@@ -95,9 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
           height: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              PlantListWidget()
-            ],
+            children: const [PlantListWidget()],
           ),
         ),
       ),
