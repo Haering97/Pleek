@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
+
 import 'models/plant.dart';
 import 'plantListWidget.dart';
 import 'createEntry.dart';
@@ -66,22 +67,26 @@ class _MyHomePageState extends State<MyHomePage> {
           .setSelfSigned(
           status:
           true); // For self signed certificates, only use for development
-      
+
+      Account account = Account(client);
       Databases databases = Databases(client);
 
 
 
       Map<String, dynamic> data = {"name":"Pilbert"};
 
-      Future test = databases.listDocuments(
+      Future listDocs = databases.listDocuments(
         databaseId: '63502af183e55060a3f4',
         collectionId: '63502bcd7b0601e44225'
       );
 
+      Future createSession = account.createEmailSession(email: 'test@test.de', password: 'testtest');
+
+
       print("client");
       print(client.endPoint);
 
-      test.then((response) {
+      listDocs.then((response) {
         print("response");
         print(response);
       }).catchError((error) {
