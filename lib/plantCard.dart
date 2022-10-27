@@ -42,7 +42,7 @@ class PlantCard extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.fromLTRB(8, 2, 8, 8),
                 child: Text(
-                  "plant.name",
+                  plant.name,
                   style: const TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.bold,

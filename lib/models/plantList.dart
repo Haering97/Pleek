@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 import 'plant.dart';
 
-class PlantList with ChangeNotifier {
+class PlantList extends ChangeNotifier {
   String listName = "Erste Liste";
   List<Plant> plants = [];
 

@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-
 import 'models/plant.dart';
 import 'plantListWidget.dart';
 import 'createEntry.dart';
@@ -58,43 +57,62 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     try {
       Provider.of<PlantList>(context, listen: false).addPlant(result);
-      //Client client = Provider.of<AWClient>(context, listen: false).client;
 
-      Client client = Client()
+      AWClient awClient = Provider.of<AWClient>(context, listen: false);
+
+      Client tmpClient = Client()
           .setEndpoint(
-          'https://80-webtronaute-webtronappw-29irk4x2vmb.ws-eu71.gitpod.io/v1') // Your Appwrite Endpoint
-          .setProject('634fdc9650e4f88d31d5') // Your project ID
+              'https://test.digiappwrite.webtron.io/v1') // Your Appwrite Endpoint
+          .setProject('635a855adec12706d793') // Your project ID
           .setSelfSigned(
-          status:
-          true); // For self signed certificates, only use for development
-
-      Account account = Account(client);
-      Databases databases = Databases(client);
+              status:
+                  true); // For self signed certificates, only use for development
 
 
 
-      Map<String, dynamic> data = {"name":"Pilbert"};
+      Map<String, dynamic> data = {"name": "Pilbert"};
 
-      Future listDocs = databases.listDocuments(
-        databaseId: '63502af183e55060a3f4',
-        collectionId: '63502bcd7b0601e44225'
-      );
+      Future createSession = awClient.account.createEmailSession(
+          email: 'test@test.de', password: 'testtest');
 
-      Future createSession = account.createEmailSession(email: 'test@test.de', password: 'testtest');
-
-
-      print("client");
-      print(client.endPoint);
-
-      listDocs.then((response) {
+      createSession.then((response) {
         print("response");
         print(response);
+
+        Future createDoc = awClient.databases.createDocument(
+          databaseId: '635a85a86ef8cfc36a76',
+          collectionId: '635a864bc5cd05f22061',
+          documentId: 'unique()',
+          data: {
+            'name':'Blirgo',
+            'age':'2'
+          },
+        );
+        createDoc.then((response) {
+          print(response);
+        }).catchError((error) {
+          print(error.response);
+        });
+
+
+
+        Future listDocs = awClient.databases.listDocuments(
+            databaseId: '635a85a86ef8cfc36a76',
+            collectionId: '635a864bc5cd05f22061');
+        listDocs.then((response) {
+          print("Docs response");
+          print(response.total);
+        }).catchError((error) {
+          print("Docs error.response");
+          print(error);
+        });
+
+
+
       }).catchError((error) {
         print("error.response");
         print(error);
       });
-
-
     } catch (e) {
       print(e);
     }
